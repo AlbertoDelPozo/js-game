@@ -95,7 +95,7 @@ function reset() {
     var element = document.createElement("div");
     var alineacion = document.querySelector('.botones');
     alineacion.appendChild(element);
-    element.className='reset';
+    element.className = 'reset';
     element.innerHTML = "RESET";
     element.addEventListener("click", () => {
         location.reload();
@@ -104,16 +104,8 @@ function reset() {
 
 function marcador() {
     var marca = document.createElement("div");
-    var alineacion =document.querySelector('.botones');
+    var alineacion = document.querySelector('.botones');
     alineacion.appendChild(marca);
-    marca.id = "marcador";
-    marca.style.height = "25px";
-    marca.style.width = "100px";
-    marca.style.display = "flex";
-    marca.style.alignItems = "center";
-    marca.style.justifyContent = "center";
-    marca.style.margin = "10px";
-    marca.style.cssFloat = "left";
     marca.innerHTML = "Marcador: " + score;
 }
 
@@ -129,7 +121,8 @@ function tiempo() {
     }, 1000);
 
     var timer = document.createElement("div");
-    document.body.appendChild(timer);
+    var alineacion = document.querySelector('.botones');
+    alineacion.appendChild(timer);
     timer.id = "timer";
     timer.style.height = "25px";
     timer.style.width = "50px";

@@ -4,11 +4,13 @@
     justify-content: center;
     flex-direction: column;
 }
+
 .botones {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .contenedor {
     height: 700px;
     width: 70%;
@@ -16,7 +18,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
+    background-image: url(src/fondo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .globos {
