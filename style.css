@@ -3,6 +3,10 @@
     src: url(src/PressStart2P-Regular.ttf);
 }
 
+html {
+    background-color: burlywood;
+}
+
 h1 {
     font-family: 'Game';
 }
@@ -33,8 +37,7 @@ h1 {
     background-size: cover;
 }
 
-.globos {
-    /* border: 1px solid black; */
+.latas {
     position: absolute;
     transition: top 1s, left 1s;
     display: flex;
@@ -54,7 +57,6 @@ h1 {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    /* font-family: 'Game'; */
 }
 
 .reiniciar {
@@ -67,7 +69,6 @@ h1 {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    /* font-family: 'Game'; */
 }
 
 .reset {
@@ -80,9 +81,18 @@ h1 {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    /* font-family: 'Game'; */
 }
+
 img {
     height: 90px;
     width: 90px;
+}
+
+.contador {
+    height: 25px;
+    width: 125px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
 }

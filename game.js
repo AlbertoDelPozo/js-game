@@ -3,8 +3,10 @@ var latas = [];
 var intervalos = [];
 var audio = document.createElement("audio");
 var score = 0;
-var numGlobos = 20;
+var marca;
+var numLatas = 20;
 var parado = false;
+var seg = 0;
 
 
 function iniciar() {
@@ -29,12 +31,25 @@ function crearContenedor() {
 }
 
 function crearLata() {
-    for (let i = 1; i < numGlobos; i++) {
+    for (let i = 1; i < numLatas; i++) {
         var lata = document.createElement("div");
         lata.id = "lata" + i;
         ele.appendChild(lata);
-        lata.className = 'globos';
-        lata.innerHTML = '<img src="./src/can2.png" />';
+        lata.className = 'latas';
+        switch (aleatorio(1,6)) {
+            case 1:
+                lata.innerHTML = '<img id="lata1" src="./src/can1.png" />';
+                break;
+            case 2:
+                lata.innerHTML = '<img id="lata2" src="./src/can2.png" />';
+                break;
+            case 3:
+                lata.innerHTML = '<img id="lata3" src="./src/can3.png" />';
+                break;
+            default:
+                lata.innerHTML = '<img id="lata2" src="./src/can2.png" />';
+                break;
+        }
         lata.addEventListener("click", eliminar);
         var interval = setInterval(crearIntervalos, 1500, lata);
         latas.push(lata);
@@ -54,15 +69,23 @@ function eliminar() {
     this.parentNode.removeChild(this);
     audio.play();
     latas.pop();
-    score += 10;
+    if (this.firstChild.id == 'lata2') {
+        score += 10;
+    } else if (this.firstChild.id == 'lata1') {
+        score += 50;
+    } else if (this.firstChild.id == 'lata3'){
+        score += 25;
+    }
+    console.log(score);
+    marca.innerHTML = 'Marcador: ' + score;
     if (latas.length == 0) {
         setTimeout(() => {
             score += 10;
             alert("Has ganado!!");
+            location.reload();
         }, 250);
     } else {
-        var suma = (document.getElementById("marcador").innerHTML =
-            "Marcador: " + score);
+        //  var suma = (document.getElementById("marcador").innerHTML = "Marcador: " + score);
     }
 }
 
@@ -74,8 +97,12 @@ function parar() {
         element.className = 'parar';
         element.innerHTML = "PARAR";
         element.addEventListener("click", () => {
-            for (let i = 0; i < latas.length; i++) {
+            for (let i = 0; i < intervalos.length; i++) {
                 clearInterval(intervalos[i]);
+            }
+            // console.log(intervalos.length);
+            for (let i = 0; i < intervalos.length; i++) {
+                intervalos.pop();
             }
         });
         parado = true;
@@ -111,34 +138,30 @@ function reset() {
 }
 
 function marcador() {
-    var marca = document.createElement("div");
+    marca = document.createElement("div");
     var alineacion = document.querySelector('.botones');
     alineacion.appendChild(marca);
     marca.innerHTML = "Marcador: " + score;
+    console.log(score, marca.innerHTML)
 }
 
 function tiempo() {
-    var seg = 60;
+    seg = 51;
     var inter = setInterval(() => {
         if (seg == 0) {
             clearInterval(inter);
             alert("Has perdido!!");
+            location.reload();
         }
-        seg--;
-        timer.innerHTML = seg;
+        --seg;
+        timer.innerHTML = 'TIME: ' + seg;
     }, 1000);
 
     var timer = document.createElement("div");
     var alineacion = document.querySelector('.botones');
     alineacion.appendChild(timer);
     timer.id = "timer";
-    timer.style.height = "25px";
-    timer.style.width = "50px";
-    timer.style.display = "flex";
-    timer.style.alignItems = "center";
-    timer.style.justifyContent = "center";
-    timer.style.margin = "10px";
-    timer.style.cssFloat = "left";
+    timer.className='contador';
 }
 
 function aleatorio(minimo, maximo) {
