@@ -1,3 +1,11 @@
+@font-face {
+    font-family: "Game";
+    src: url(src/PressStart2P-Regular.ttf);
+}
+
+h1 {
+    font-family: 'Game';
+}
 .alineacion {
     display: flex;
     align-items: center;
@@ -9,6 +17,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Game';
+    font-size: smaller;
 }
 
 .contenedor {
@@ -36,7 +46,7 @@
 
 .parar {
     height: 25px;
-    width: 100px;
+    width: 150px;
     border: 1px solid black;
     background-color: rgb(255, 83, 83);
     margin: 10px;
@@ -44,11 +54,12 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    /* font-family: 'Game'; */
 }
 
 .reiniciar {
     height: 25px;
-    width: 100px;
+    width: 150px;
     border: 1px solid black;
     background-color: rgb(83, 255, 91);
     margin: 10px;
@@ -56,11 +67,12 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    /* font-family: 'Game'; */
 }
 
 .reset {
     height: 25px;
-    width: 100px;
+    width: 150px;
     border: 1px solid black;
     background-color: rgb(252, 238, 40);
     margin: 10px;
@@ -68,6 +80,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    /* font-family: 'Game'; */
 }
 img {
     height: 90px;

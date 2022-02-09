@@ -4,6 +4,8 @@ var intervalos = [];
 var audio = document.createElement("audio");
 var score = 0;
 var numGlobos = 20;
+var parado = false;
+
 
 function iniciar() {
     document.body.appendChild(audio);
@@ -65,30 +67,36 @@ function eliminar() {
 }
 
 function parar() {
-    var element = document.createElement("div");
-    var alineacion = document.querySelector('.botones');
-    alineacion.appendChild(element);
-    element.className = 'parar';
-    element.innerHTML = "PARAR";
-    element.addEventListener("click", () => {
-        for (let i = 0; i < latas.length; i++) {
-            clearInterval(intervalos[i]);
-        }
-    });
+    if (parado == false) {
+        var element = document.createElement("div");
+        var alineacion = document.querySelector('.botones');
+        alineacion.appendChild(element);
+        element.className = 'parar';
+        element.innerHTML = "PARAR";
+        element.addEventListener("click", () => {
+            for (let i = 0; i < latas.length; i++) {
+                clearInterval(intervalos[i]);
+            }
+        });
+        parado = true;
+    } 
 }
 
 function reiniciar() {
-    var element = document.createElement("div");
-    var alineacion = document.querySelector('.botones');
-    alineacion.appendChild(element);
-    element.className='reiniciar';
-    element.innerHTML = "REINICIAR";
-    element.addEventListener("click", () => {
-        for (let i = 0; i < latas.length; i++) {
-            var newIntervalo = setInterval(crearIntervalos, 1500, latas[i]);
-            intervalos.push(newIntervalo);
-        }
-    });
+    if (parado == true) {
+        var element = document.createElement("div");
+        var alineacion = document.querySelector('.botones');
+        alineacion.appendChild(element);
+        element.className='reiniciar';
+        element.innerHTML = "REINICIAR";
+        element.addEventListener("click", () => {
+            for (let i = 0; i < latas.length; i++) {
+                var newIntervalo = setInterval(crearIntervalos, 1500, latas[i]);
+                intervalos.push(newIntervalo);
+            }
+        });
+        parado = false;
+    }
 }
 
 function reset() {
