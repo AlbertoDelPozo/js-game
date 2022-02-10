@@ -38,20 +38,26 @@ function crearLata() {
         lata.className = 'latas';
         switch (aleatorio(1,6)) {
             case 1:
+                //lata negra
                 lata.innerHTML = '<img id="lata1" src="./src/can1.png" />';
+                var interval = setInterval(crearIntervalos, 750, lata);
                 break;
             case 2:
+                //lata azul
                 lata.innerHTML = '<img id="lata2" src="./src/can2.png" />';
+                var interval = setInterval(crearIntervalos, 1250, lata);
                 break;
             case 3:
+                // lata roja
                 lata.innerHTML = '<img id="lata3" src="./src/can3.png" />';
+                var interval = setInterval(crearIntervalos, 1750, lata);
                 break;
             default:
                 lata.innerHTML = '<img id="lata2" src="./src/can2.png" />';
+                var interval = setInterval(crearIntervalos, 1250, lata);
                 break;
         }
         lata.addEventListener("click", eliminar);
-        var interval = setInterval(crearIntervalos, 1500, lata);
         latas.push(lata);
         intervalos.push(interval);
     }
@@ -141,6 +147,7 @@ function marcador() {
     marca = document.createElement("div");
     var alineacion = document.querySelector('.botones');
     alineacion.appendChild(marca);
+    marca.className = 'contador';
     marca.innerHTML = "Marcador: " + score;
     console.log(score, marca.innerHTML)
 }
