@@ -9,6 +9,7 @@ var marca;
 var numLatas = 20;
 var parado = false;
 var seg = 0;
+var inter;
 
 //main
 function iniciar() {
@@ -20,11 +21,7 @@ function iniciar() {
     document.body.appendChild(element);
     crearContenedor();
     crearLata();
-    parar();
-    reiniciar();
-    reset();
     marcador();
-    tiempo();
 }
 
 // función para crear el contenedor exterior
@@ -77,6 +74,11 @@ function crearIntervalos(lata) {
     var left = aleatorio(300, 1500);
     lata.style.top = top + "px";
     lata.style.left = left + "px";
+    var rotar = aleatorio(20, 960);
+    lata.style.webkitTransform = 'rotate(' + rotar + 'deg)';
+    lata.style.msTransform = 'rotate(' + rotar + 'deg)';
+    lata.style.OTransform = 'rotate(' + rotar + 'deg)';
+    lata.style.transform = 'rotate(' + rotar + 'deg)';
 }
 
 // funcionar para eliminar las latas al hacer click en ellas
@@ -108,82 +110,78 @@ function eliminar() {
 }
 
 // función para para los intervalos de las latas
-function parar() {
-    
-    if (parado == false) {
-        var element = document.createElement("div");
-        var alineacion = document.querySelector('.botones');
-        alineacion.appendChild(element);
-        element.className = 'parar';
-        element.innerHTML = "PARAR";
-        element.addEventListener("click", () => {
-            for (let i = 0; i < intervalos.length; i++) {
-                clearInterval(intervalos[i]);
-            }
-            // console.log(intervalos.length);
-            for (let i = 0; i < intervalos.length; i++) {
-                intervalos.pop();
-            }
-        });
-        parado = true;
-    } 
+function parar(ev) {
+
+    for (let i = 0; i < intervalos.length; i++) {
+        clearInterval(intervalos[i]);
+
+    }
+    for (let i = 0; i < intervalos.length; i++) {
+        intervalos.pop();
+    }
+    parado = true;
+    clearInterval(inter);
+    // let element = document.querySelector('.contenedor');
+    // element.style.display = 'none';
+    // let ele = document.createElement('div');
+    // var alineacion = document.querySelector('.alineacion');
+    // alineacion.appendChild(ele);
+    // ele.className = 'contenedor';
+
 }
 
 function reiniciar() {
     if (parado == true) {
-        var element = document.createElement("div");
-        var alineacion = document.querySelector('.botones');
-        alineacion.appendChild(element);
-        element.className='reiniciar';
-        element.innerHTML = "REINICIAR";
-        element.addEventListener("click", () => {
-            for (let i = 0; i < latas.length; i++) {
-                var newIntervalo = setInterval(crearIntervalos, 1500, latas[i]);
-                intervalos.push(newIntervalo);
-            }
-        });
+        for (let i = 0; i < latas.length; i++) {
+            var newIntervalo = setInterval(crearIntervalos, 1500, latas[i]);
+            intervalos.push(newIntervalo);
+        }
         parado = false;
+        inter = setInterval(() => {
+            if (seg == 0) {
+                clearInterval(inter);
+                alert("Has perdido!!");
+                location.reload();
+            } else {
+                --seg;
+            }
+            timer.innerHTML = 'TIME: ' + seg;
+        }, 1000);
     }
+
 }
 
 function reset() {
-    var element = document.createElement("div");
-    var alineacion = document.querySelector('.botones');
-    alineacion.appendChild(element);
-    element.className = 'reset';
-    element.innerHTML = "RESET";
-    element.addEventListener("click", () => {
-        location.reload();
-    });
+
+
+    location.reload();
+
 }
 
 function marcador() {
     marca = document.createElement("div");
-    var alineacion = document.querySelector('.botones');
-    alineacion.appendChild(marca);
+    var botones = document.querySelector('.botones');
+    botones.appendChild(marca);
     marca.className = 'contador';
     marca.innerHTML = "Marcador: " + score;
-    console.log(score, marca.innerHTML)
-}
-
-function tiempo() {
+    var timer = document.createElement("div");
+    botones.appendChild(timer);
+    timer.id = "timer";
+    timer.className='contador';
     seg = 51;
-    var inter = setInterval(() => {
+    inter = setInterval(() => {
         if (seg == 0) {
             clearInterval(inter);
             alert("Has perdido!!");
             location.reload();
+        } else {
+            --seg;
         }
-        --seg;
         timer.innerHTML = 'TIME: ' + seg;
     }, 1000);
-
-    var timer = document.createElement("div");
-    var alineacion = document.querySelector('.botones');
-    alineacion.appendChild(timer);
-    timer.id = "timer";
-    timer.className='contador';
+    
 }
+
 
 function aleatorio(minimo, maximo) {
     return Math.floor(Math.random() * (maximo + 1 - minimo) + minimo);
