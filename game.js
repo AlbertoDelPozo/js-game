@@ -1,17 +1,21 @@
+//variables globales
 var ele;
 var latas = [];
 var intervalos = [];
-var audio = document.createElement("audio");
+var audioLata = document.createElement("audio");
+var audioCancion = document.createElement("audio");
 var score = 0;
 var marca;
 var numLatas = 20;
 var parado = false;
 var seg = 0;
 
-
+//main
 function iniciar() {
-    document.body.appendChild(audio);
-    audio.src = "../src/disparo.mp3";
+    document.body.appendChild(audioLata);
+    audioLata.src = "../src/disparo.mp3";
+    document.body.appendChild(audioCancion)
+    audioCancion.src = "../src/bandaSonora.mp3";
     var element = document.createElement("div");
     document.body.appendChild(element);
     crearContenedor();
@@ -23,6 +27,7 @@ function iniciar() {
     tiempo();
 }
 
+// función para crear el contenedor exterior
 function crearContenedor() {
     ele = document.createElement("div");
     var alineacion = document.querySelector('.alineacion');
@@ -30,17 +35,20 @@ function crearContenedor() {
     ele.className = 'contenedor';
 }
 
+// función para crear las diferentes latas
 function crearLata() {
+    // bucle con el creamos las latas con un número determinado
     for (let i = 1; i < numLatas; i++) {
         var lata = document.createElement("div");
         lata.id = "lata" + i;
         ele.appendChild(lata);
         lata.className = 'latas';
+        // switch para crear todas las latas con intervalos de movimielntos diferentes 
         switch (aleatorio(1,6)) {
             case 1:
                 //lata negra
                 lata.innerHTML = '<img id="lata1" src="./src/can1.png" />';
-                var interval = setInterval(crearIntervalos, 750, lata);
+                var interval = setInterval(crearIntervalos, 850, lata);
                 break;
             case 2:
                 //lata azul
@@ -50,7 +58,7 @@ function crearLata() {
             case 3:
                 // lata roja
                 lata.innerHTML = '<img id="lata3" src="./src/can3.png" />';
-                var interval = setInterval(crearIntervalos, 1750, lata);
+                var interval = setInterval(crearIntervalos, 1500, lata);
                 break;
             default:
                 lata.innerHTML = '<img id="lata2" src="./src/can2.png" />';
@@ -63,7 +71,7 @@ function crearLata() {
     }
 }
 
-
+// función que crea intervalos
 function crearIntervalos(lata) {
     var top = aleatorio(100, 700);
     var left = aleatorio(300, 1500);
@@ -71,31 +79,37 @@ function crearIntervalos(lata) {
     lata.style.left = left + "px";
 }
 
+// funcionar para eliminar las latas al hacer click en ellas
 function eliminar() {
     this.parentNode.removeChild(this);
-    audio.play();
+    // reproducimos los audios
+    audioLata.play();
+    audioCancion.play();
+    // eliminamos las latas del array
     latas.pop();
+    // establecemos los diferentes marcadores para las latas
     if (this.firstChild.id == 'lata2') {
         score += 10;
     } else if (this.firstChild.id == 'lata1') {
         score += 50;
+        seg += 5;
     } else if (this.firstChild.id == 'lata3'){
         score += 25;
     }
-    console.log(score);
     marca.innerHTML = 'Marcador: ' + score;
+    // hacemos un retardo en la muestra del alert
     if (latas.length == 0) {
         setTimeout(() => {
             score += 10;
             alert("Has ganado!!");
             location.reload();
         }, 250);
-    } else {
-        //  var suma = (document.getElementById("marcador").innerHTML = "Marcador: " + score);
     }
 }
 
+// función para para los intervalos de las latas
 function parar() {
+    
     if (parado == false) {
         var element = document.createElement("div");
         var alineacion = document.querySelector('.botones');
