@@ -83,38 +83,39 @@ function crearIntervalos(lata) {
 
 // funcionar para eliminar las latas al hacer click en ellas
 function eliminar() {
-    this.parentNode.removeChild(this);
-    // reproducimos los audios
-    audioLata.play();
-    audioCancion.play();
-    // eliminamos las latas del array
-    latas.pop();
-    // establecemos los diferentes marcadores para las latas
-    if (this.firstChild.id == 'lata2') {
-        score += 10;
-    } else if (this.firstChild.id == 'lata1') {
-        score += 50;
-        seg += 5;
-    } else if (this.firstChild.id == 'lata3'){
-        score += 25;
-    }
-    marca.innerHTML = 'Marcador: ' + score;
-    // hacemos un retardo en la muestra del alert
-    if (latas.length == 0) {
-        setTimeout(() => {
+    if (!parado) {
+        this.parentNode.removeChild(this);
+        // reproducimos los audios
+        audioLata.play();
+        audioCancion.play();
+        // eliminamos las latas del array
+        latas.pop();
+        // establecemos los diferentes marcadores para las latas
+        if (this.firstChild.id == 'lata2') {
             score += 10;
-            alert("Has ganado!!");
-            location.reload();
-        }, 250);
+        } else if (this.firstChild.id == 'lata1') {
+            score += 50;
+            seg += 5;
+        } else if (this.firstChild.id == 'lata3'){
+            score += 25;
+        }
+        marca.innerHTML = 'Marcador: ' + score;
+        // hacemos un retardo en la muestra del alert
+        if (latas.length == 0) {
+            setTimeout(() => {
+                score += 10;
+                alert("Has ganado!!");
+                location.reload();
+            }, 250);
+        }
     }
 }
 
 // función para para los intervalos de las latas
-function parar(ev) {
-
+function parar() {
     for (let i = 0; i < intervalos.length; i++) {
         clearInterval(intervalos[i]);
-
+        
     }
     for (let i = 0; i < intervalos.length; i++) {
         intervalos.pop();
@@ -133,8 +134,21 @@ function parar(ev) {
 function reiniciar() {
     if (parado == true) {
         for (let i = 0; i < latas.length; i++) {
-            var newIntervalo = setInterval(crearIntervalos, 1500, latas[i]);
-            intervalos.push(newIntervalo);
+           
+            // var newIntervalo = setInterval(crearIntervalos, 1500, latas[i]);
+            // intervalos.push(newIntervalo);
+            
+
+            if (latas[i].firstChild.id == 'lata2') {
+                var newIntervalo = setInterval(crearIntervalos, 1500, latas[i]);
+                intervalos.push(newIntervalo);
+            } else if (latas[i].firstChild.id == 'lata1') {
+                var newIntervalo = setInterval(crearIntervalos, 850, latas[i]);
+                intervalos.push(newIntervalo);
+            } else if (latas[i].firstChild.id == 'lata3'){
+                var newIntervalo = setInterval(crearIntervalos, 1250, latas[i]);
+                intervalos.push(newIntervalo);
+            }
         }
         parado = false;
         inter = setInterval(() => {
@@ -152,10 +166,7 @@ function reiniciar() {
 }
 
 function reset() {
-
-
     location.reload();
-
 }
 
 function marcador() {
