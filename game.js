@@ -62,7 +62,9 @@ function crearLata() {
                 var interval = setInterval(crearIntervalos, 1250, lata);
                 break;
         }
+        // evento para eliminar las latas al clicar
         lata.addEventListener("click", eliminar);
+        // introducimos los datos generados en un array
         latas.push(lata);
         intervalos.push(interval);
     }
@@ -102,30 +104,15 @@ function eliminar() {
         marca.innerHTML = 'Marcador: ' + score;
         // hacemos un retardo en la muestra del alert
         if (latas.length == 0) {
-
-            // const espera = ms => new Promise(resuelve => setTimeout(resuelve, ms));
-            // espera(10000).then(() => diAlgo("10 segundos")).catch(falloCallback);
-
-            // new Promise(function(resolve, reject){
-            //     setTimeout(function() {
-            //         resolve("timeout");
-            //     }, timeoutInMilliseconds);
-
+            // promesa
             let promise = new Promise(function(resolve, reject) {
                 setTimeout(() => resolve("Has ganado!!"), location.reload(), 500);
               });
               
-              // resolve ejecuta la primera función en .then
               promise.then(
-                result => alert(result),// muestra "hecho!" después de 1 segundo
-                error => alert(error) // no se ejecuta
+                result => alert(result),
+                error => alert(error) 
               );
-
-            // setTimeout(() => {
-            //     score += 10;
-            //     alert("Has ganado!!");
-            //     location.reload();
-            // }, 500);
         }
     }
 }
@@ -134,29 +121,20 @@ function eliminar() {
 function parar() {
     for (let i = 0; i < intervalos.length; i++) {
         clearInterval(intervalos[i]);
-        
     }
     for (let i = 0; i < intervalos.length; i++) {
         intervalos.pop();
     }
     parado = true;
     clearInterval(inter);
-    // let element = document.querySelector('.contenedor');
-    // element.style.display = 'none';
-    // let ele = document.createElement('div');
-    // var alineacion = document.querySelector('.alineacion');
-    // alineacion.appendChild(ele);
-    // ele.className = 'contenedor';
-
 }
 
+// función para reiniciar el juego
 function reiniciar() {
+    // controlador para volver a crear los intervalos eliminados anteriormente
     if (parado == true) {
+
         for (let i = 0; i < latas.length; i++) {
-           
-            // var newIntervalo = setInterval(crearIntervalos, 1500, latas[i]);
-            // intervalos.push(newIntervalo);
-            
 
             if (latas[i].firstChild.id == 'lata2') {
                 var newIntervalo = setInterval(crearIntervalos, 1500, latas[i]);
@@ -169,7 +147,9 @@ function reiniciar() {
                 intervalos.push(newIntervalo);
             }
         }
+        // cambiamos parado a false para que se sigan moviendo
         parado = false;
+        // intervalo para controlar el timer
         inter = setInterval(() => {
             if (seg == 0) {
                 clearInterval(inter);
@@ -184,10 +164,12 @@ function reiniciar() {
 
 }
 
+// función para reiniciar el juego 
 function reset() {
     location.reload();
 }
 
+// función para el marcador
 function marcador() {
     marca = document.createElement("div");
     var botones = document.querySelector('.botones');
@@ -212,7 +194,7 @@ function marcador() {
     
 }
 
-
+// funcion para generar números aleatorios
 function aleatorio(minimo, maximo) {
     return Math.floor(Math.random() * (maximo + 1 - minimo) + minimo);
 }
