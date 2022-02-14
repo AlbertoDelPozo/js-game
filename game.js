@@ -2,8 +2,8 @@
 var ele;
 var latas = [];
 var intervalos = [];
-var audioLata = document.createElement("audio");
-var audioCancion = document.createElement("audio");
+const audioLata = document.createElement("audio");
+const audioCancion = document.createElement("audio");
 var score = 0;
 var marca;
 var numLatas = 20;
@@ -102,11 +102,30 @@ function eliminar() {
         marca.innerHTML = 'Marcador: ' + score;
         // hacemos un retardo en la muestra del alert
         if (latas.length == 0) {
-            setTimeout(() => {
-                score += 10;
-                alert("Has ganado!!");
-                location.reload();
-            }, 500);
+
+            // const espera = ms => new Promise(resuelve => setTimeout(resuelve, ms));
+            // espera(10000).then(() => diAlgo("10 segundos")).catch(falloCallback);
+
+            // new Promise(function(resolve, reject){
+            //     setTimeout(function() {
+            //         resolve("timeout");
+            //     }, timeoutInMilliseconds);
+
+            let promise = new Promise(function(resolve, reject) {
+                setTimeout(() => resolve("Has ganado!!"), location.reload(), 500);
+              });
+              
+              // resolve ejecuta la primera función en .then
+              promise.then(
+                result => alert(result),// muestra "hecho!" después de 1 segundo
+                error => alert(error) // no se ejecuta
+              );
+
+            // setTimeout(() => {
+            //     score += 10;
+            //     alert("Has ganado!!");
+            //     location.reload();
+            // }, 500);
         }
     }
 }
