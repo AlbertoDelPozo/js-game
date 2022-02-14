@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Game";
-    src: url(src/PressStart2P-Regular.ttf);
+    src: url(../src/PressStart2P-Regular.ttf);
 }
 
 html {
@@ -32,7 +32,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url(src/fondo.jpg);
+    background-image: url(../src/fondo.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }

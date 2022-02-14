@@ -175,7 +175,7 @@ function marcador() {
     var botones = document.querySelector('.botones');
     botones.appendChild(marca);
     marca.className = 'contador';
-    marca.innerHTML = "Marcador: " + score;
+    marca.innerHTML = "SCORE: " + score;
     var timer = document.createElement("div");
     botones.appendChild(timer);
     timer.id = "timer";

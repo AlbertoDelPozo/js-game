@@ -1,4 +1,4 @@
-wc-cambio {
+wc-cambio, h1 {
     font-family: 'Press Start 2P', cursive;
     font-size: 3em;
 }
@@ -14,4 +14,7 @@ button {
 }
 * {
     background-color: indianred;
+}
+p{
+    font-family: 'Press Start 2P', cursive;
 }
