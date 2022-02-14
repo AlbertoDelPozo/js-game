@@ -106,7 +106,7 @@ function eliminar() {
                 score += 10;
                 alert("Has ganado!!");
                 location.reload();
-            }, 250);
+            }, 500);
         }
     }
 }
