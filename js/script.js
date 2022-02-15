@@ -1,5 +1,3 @@
-
-
 class Cambio extends HTMLElement {
     constructor () {
         super ();
